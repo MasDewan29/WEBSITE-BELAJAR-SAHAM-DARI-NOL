@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DXF STOCK PRO</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Global Styles */
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Poppins',sans-serif;background:#0b0c10;color:#fff;scroll-behavior:smooth;line-height:1.6;}
+a{text-decoration:none;color:inherit;}
+section{width:100vw;padding:120px 10%;position:relative;opacity:0;transform:translateY(50px);transition:1s;}
+section.active{opacity:1;transform:translateY(0);}
+h2{text-align:center;font-size:32px;margin-bottom:30px;color:#00ccff;text-shadow:0 0 10px #0ff;}
+p{text-align:justify;margin-bottom:15px;}
+/* Header */
+header{position:fixed;top:0;left:0;width:100%;background:rgba(0,0,0,0.85);display:flex;justify-content:space-between;align-items:center;padding:15px 10%;z-index:100;backdrop-filter:blur(10px);}
+header .logo{font-size:28px;font-weight:700;color:#00ccff;}
+nav{display:flex;align-items:center;gap:20px;}
+nav a{color:#fff;font-weight:500;padding:8px 12px;transition:0.3s;}
+nav a:hover{color:#00ffcc;}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;}
+.hamburger div{width:30px;height:4px;background:#fff;transition:0.3s;}
+.mobile-menu{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.95);flex-direction:column;justify-content:center;align-items:center;gap:30px;z-index:200;}
+.mobile-menu a{font-size:24px;color:#fff;}
+.close-menu{position:absolute;top:20px;right:30px;font-size:36px;cursor:pointer;color:#fff;}
+@media screen and (max-width:768px){nav{display:none;}.hamburger{display:flex;}}
+
+/* Hero */
+.hero{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:90vh;}
+.hero h1{font-size:42px;margin-bottom:15px;color:#00ccff;text-shadow:0 0 25px #00ffcc,0 0 50px #00ffcc;}
+.typed-text{font-size:22px;color:#0ff;margin-bottom:25px;overflow:hidden;border-right:3px solid #00ffcc;white-space:nowrap;animation:typing 4s steps(40, end), blink 0.75s step-end infinite;}
+@keyframes typing{from{width:0} to{width:100%}}
+@keyframes blink{50%{border-color:transparent}}
+.btn-primary{padding:14px 40px;background:linear-gradient(90deg,#0066ff,#00ccff);color:#fff;font-weight:600;border:none;border-radius:12px;animation:glow 1.5s infinite alternate;cursor:pointer;}
+.btn-primary:hover{box-shadow:0 0 25px #00ccff;transform:scale(1.05);}
+@keyframes glow{0%{box-shadow:0 0 5px #00ccff;}100%{box-shadow:0 0 25px #00ccff;}}
+
+/* Cards */
+.cards, .modul-cards, .live-cards, .benefit-cards, .testimonial-cards{display:flex;flex-wrap:wrap;gap:25px;justify-content:center;}
+.card, .modul-card, .live-card, .benefit-card, .testimonial-card, .form-card{background:rgba(255,255,255,0.05);padding:20px;border-radius:18px;flex:1 1 280px;transition:0.5s;position:relative;}
+.card:hover, .modul-card:hover, .live-card:hover, .benefit-card:hover, .testimonial-card:hover{transform:translateY(-10px);box-shadow:0 0 30px #00ccff;}
+
+/* Form */
+.form-card{background:rgba(255,255,255,0.08);padding:25px;border-radius:20px;max-width:600px;width:100%;display:flex;flex-direction:column;gap:15px;margin:0 auto;}
+.form-card input, .form-card select, .form-card textarea{padding:12px;border-radius:8px;border:none;background:#222;color:#fff;font-size:16px;transition:0.3s;}
+.form-card input:focus, .form-card select:focus, .form-card textarea:focus{outline:none;box-shadow:0 0 15px #00ccff;}
+.form-card button{padding:14px;background:linear-gradient(90deg,#0066ff,#00ccff);border:none;border-radius:10px;color:#fff;font-weight:600;font-size:16px;cursor:pointer;transition:0.3s;}
+.form-card button:hover{box-shadow:0 0 25px #00ccff;transform:scale(1.05);}
+
+/* Table */
+table{width:100%;border-collapse:collapse;margin:20px 0;}
+table, th, td{border:1px solid #00ccff;}
+th, td{padding:12px;text-align:center;}
+
+/* Scroll Top Button */
+#topBtn{display:none;position:fixed;bottom:40px;right:40px;z-index:99;font-size:20px;background:#007BFF;color:#fff;border:none;padding:16px;border-radius:50%;transition:0.3s;cursor:pointer;}
+#topBtn:hover{box-shadow:0 0 20px #00ccff;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">DXF STOCK</div>
+  <nav>
+    <a href="#hero">Home</a>
+    <a href="#about">About</a>
+    <a href="#form">Daftar</a>
+    <a href="#modul">Modul</a>
+    <a href="#live">Live Class</a>
+    <a href="#benefit">Fasilitas</a>
+    <a href="#testimonial">Testimoni</a>
+    <a href="#contact">Kontak</a>
+  </nav>
+  <div class="hamburger" onclick="openMenu()"><div></div><div></div><div></div></div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <span class="close-menu" onclick="closeMenu()">&times;</span>
+  <a href="#hero" onclick="closeMenu()">Home</a>
+  <a href="#about" onclick="closeMenu()">About</a>
+  <a href="#form" onclick="closeMenu()">Daftar</a>
+  <a href="#modul" onclick="closeMenu()">Modul</a>
+  <a href="#live" onclick="closeMenu()">Live Class</a>
+  <a href="#benefit" onclick="closeMenu()">Fasilitas</a>
+  <a href="#testimonial" onclick="closeMenu()">Testimoni</a>
+  <a href="#contact" onclick="closeMenu()">Kontak</a>
+</div>
+
+<!-- Hero -->
+<section class="hero" id="hero">
+  <h1>DXF STOCK</h1>
+  <div class="typed-text">Belajar saham dari nol hingga mahir </div>
+  <button class="btn-primary" onclick="document.getElementById('form').scrollIntoView({behavior:'smooth'})">Daftar Sekarang</button>
+</section>
+
+<!-- About -->
+<section id="about">
+<h2>Tentang DXF STOCK</h2>
+<p>
+DXF STOCK  adalah platform belajar saham paling lengkap dan terpercaya. Dengan modul 12 bab, live class 6 pertemuan setiap bulan, simulasi akun virtual, dan PDF yang hanya bisa diakses setelah mengikuti kelas. Peserta belajar strategi nyata, analisis fundamental & teknikal, manajemen risiko, dan psikologi trading. Website profesional, aman, interaktif, dan memberikan pengalaman belajar menyenangkan. Cocok untuk pemula maupun trader yang ingin profit nyata. Setiap modul disusun rapi dan dilengkapi contoh nyata, sehingga proses belajar lebih mudah dipahami dan menarik.
+</p>
+</section>
+
+<!-- Daftar -->
+<section id="form">
+<h2>Daftar Sekarang</h2>
+<div class="form-card">
+  <input type="text" id="name" placeholder="Nama Lengkap" required>
+  <input type="email" id="email" placeholder="Email" required>
+  <input type="text" id="whatsapp" placeholder="WhatsApp" required>
+  <select id="paket" required>
+    <option value="">Pilih Paket</option>
+    <option value="1">Paket 1 - Rp500.000</option>
+    <option value="2">Paket 2 - Rp750.000</option>
+    <option value="3">Paket 3 - Rp1.000.000</option>
+    <option value="4">Paket 4 - Rp1.250.000</option>
+    <option value="5">Paket 5 - Rp1.500.000</option>
+    <option value="6">Paket 6 - Rp2.000.000</option>
+    <option value="7">Paket 7 - Rp2.500.000</option>
+  </select>
+  <label><input type="checkbox" id="robotCheck"> Saya bukan robot</label>
+  <button onclick="submitForm('daftar')">Submit & Bayar</button>
+</div>
+</section>
+
+<!-- Modul -->
+<section id="modul">
+<h2>Modul Belajar</h2>
+<div class="modul-cards">
+  <div class="modul-card" onclick="alert('Bab 1: Pengenalan Saham. PDF unlock setelah bayar.')">Bab 1 - Pengenalan Saham</div>
+  <div class="modul-card" onclick="alert('Bab 2: Analisis Fundamental. PDF unlock setelah bayar.')">Bab 2 - Analisis Fundamental</div>
+  <div class="modul-card" onclick="alert('Bab 3: Analisis Teknikal. PDF unlock setelah bayar.')">Bab 3 - Analisis Teknikal</div>
+  <div class="modul-card" onclick="alert('Bab 4: Manajemen Risiko. PDF unlock setelah bayar.')">Bab 4 - Manajemen Risiko</div>
+  <div class="modul-card" onclick="alert('Bab 5: Psikologi Trading. PDF unlock setelah bayar.')">Bab 5 - Psikologi Trading</div>
+  <div class="modul-card" onclick="alert('Bab 6: Strategi Jangka Pendek. PDF unlock setelah bayar.')">Bab 6 - Strategi Jangka Pendek</div>
+  <div class="modul-card" onclick="alert('Bab 7: Strategi Jangka Panjang. PDF unlock setelah bayar.')">Bab 7 - Strategi Jangka Panjang</div>
+  <div class="modul-card" onclick="alert('Bab 8: Indikator Saham. PDF unlock setelah bayar.')">Bab 8 - Indikator Saham</div>
+  <div class="modul-card" onclick="alert('Bab 9: Analisis Volume. PDF unlock setelah bayar.')">Bab 9 - Analisis Volume</div>
+  <div class="modul-card" onclick="alert('Bab 10: Analisis Tren. PDF unlock setelah bayar.')">Bab 10 - Analisis Tren</div>
+  <div class="modul-card" onclick="alert('Bab 11: Strategi Lanjutan. PDF unlock setelah bayar.')">Bab 11 - Strategi Lanjutan</div>
+  <div class="modul-card" onclick="alert('Bab 12: Evaluasi & Simulasi. PDF unlock setelah bayar.')">Bab 12 - Evaluasi & Simulasi</div>
+</div>
+</section>
+
+<!-- Live Class -->
+<section id="live">
+<h2>Jadwal Live Class</h2>
+<table>
+  <tr><th>Pertemuan</th><th>Hari</th><th>Jam</th></tr>
+  <tr><td>1</td><td>Sabtu, 6 Desember 2025</td><td>19:00 - 20:30</td></tr>
+  <tr><td>2</td><td>Minggu, 7 Desember 2025</td><td>20:00 - 21:30</td></tr>
+  <tr><td>3</td><td>Sabtu, 13 Desember 2025</td><td>19:30 - 21:00</td></tr>
+  <tr><td>4</td><td>Minggu, 14 Desember 2025</td><td>20:00 - 21:30</td></tr>
+  <tr><td>5</td><td>Sabtu, 20 Desember 2025</td><td>19:00 - 21:00</td></tr>
+  <tr><td>6</td><td>Minggu, 21 Desember 2025</td><td>19:30 - 21:30</td></tr>
+</table>
+</section>
+
+<!-- Fasilitas -->
+<section id="benefit">
+<h2>Fasilitas & Benefit</h2>
+<div class="benefit-cards">
+  <div class="benefit-card">Modul Lengkap 12 Bab</div>
+  <div class="benefit-card">Live Class 6 Pertemuan</div>
+  <div class="benefit-card">Simulasi Akun Virtual</div>
+  <div class="benefit-card">PDF Unlock Setelah Bayar</div>
+  <div class="benefit-card">Materi Strategi Trading</div>
+  <div class="benefit-card">Analisis Fundamental & Teknikal</div>
+  <div class="benefit-card">Manajemen Risiko</div>
+  <div class="benefit-card">Psikologi Trading</div>
+  <div class="benefit-card">Website Profesional & Interaktif</div>
+  <div class="benefit-card">Aman & Terpercaya</div>
+  <div class="benefit-card">Contoh Kasus Nyata</div>
+  <div class="benefit-card">Pendampingan Pemula</div>
+</div>
+</section>
+
+<!-- Testimoni -->
+<section id="testimonial">
+<h2>Testimoni Peserta</h2>
+<div class="testimonial-cards">
+  <div class="testimonial-card">"DXF STOCK sangat membantu saya belajar saham. Hasil trading meningkat!" - Rian</div>
+  <div class="testimonial-card">"Modul dan Live Classnya keren, mudah dipahami!" - Siti</div>
+  <div class="testimonial-card">"Website profesional, interaktif dan menyenangkan." - Andi</div>
+  <div class="testimonial-card">"Live Class detail, langsung praktek trading!" - Dewi</div>
+  <div class="testimonial-card">"Belajar saham dari nol sampai mahir, recommended!" - Fajar</div>
+  <div class="testimonial-card">"Materinya lengkap dan praktis!" - Nina</div>
+  <div class="testimonial-card">"Pembelajaran nyaman dan mudah diikuti." - Budi</div>
+  <div class="testimonial-card">"Instruktur ramah dan jelas." - Rani</div>
+  <div class="testimonial-card">"Cuan pertama saya berkat DXF STOCK!" - Toni</div>
+  <div class="testimonial-card">"Sangat direkomendasikan untuk pemula." - Maya</div>
+  <div class="testimonial-card">"Materi up-to-date dan lengkap." - Fikri</div>
+  <div class="testimonial-card">"Belajar saham jadi menyenangkan!" - Lusi</div>
+</div>
+</section>
+
+<!-- Kontak -->
+<section id="contact">
+<h2>Kontak & Tanya Jawab</h2>
+<div class="form-card">
+  <input placeholder="Nama" required>
+  <input placeholder="Email" required>
+  <input placeholder="WhatsApp" required>
+  <input placeholder="Topik Pertanyaan" required>
+  <textarea placeholder="Tuliskan pertanyaanmu" required></textarea>
+  <button onclick="submitForm('contact')">Kirim Pertanyaan</button>
+</div>
+<div style="text-align:center;margin-top:20px;">
+  <a href="https://instagram.com" target="_blank"><img src="https://img.icons8.com/ios-filled/50/00ccff/instagram-new.png"/></a>
+  <a href="https://wa.me" target="_blank"><img src="https://img.icons8.com/ios-filled/50/00ccff/whatsapp.png"/></a>
+  <a href="https://www.tiktok.com" target="_blank"><img src="https://img.icons8.com/ios-filled/50/00ccff/tiktok.png"/></a>
+</div>
+
+<button onclick="topFunction()" id="topBtn" title="Go to top">&#8679;</button>
+
+<script>
+// Mobile Menu
+function openMenu(){document.getElementById('mobileMenu').style.display='flex';}
+function closeMenu(){document.getElementById('mobileMenu').style.display='none';}
+
+// Scroll Animation
+window.addEventListener('scroll',function(){
+  document.querySelectorAll('section').forEach(s=>{
+    if(s.getBoundingClientRect().top<window.innerHeight-100){s.classList.add('active');}
+  });
+  if(document.documentElement.scrollTop>200){document.getElementById('topBtn').style.display='block';}
+  else{document.getElementById('topBtn').style.display='none';}
+});
+
+// Scroll Top
+function topFunction(){document.documentElement.scrollTop=0;}
+
+// Form Submission
+function submitForm(type){
+  if(type==='daftar'){
+    const name=document.getElementById('name').value.trim();
+    const email=document.getElementById('email').value.trim();
+    const whatsapp=document.getElementById('whatsapp').value.trim();
+    const paket=document.getElementById('paket').value;
+    const robot=document.getElementById('robotCheck').checked;
+    if(!name||!email||!whatsapp||!paket||!robot){alert('Lengkapi semua form dan centang "Saya bukan robot"!'); return;}
+    alert('Pendaftaran berhasil! Lanjut ke pembayaran semua bank tersedia.');
+  } else if(type==='contact'){
+    const inputs=document.querySelectorAll('#contact input, #contact textarea');
+    for(let i=0;i<inputs.length;i++){if(!inputs[i].value.trim()){alert('Lengkapi semua form!'); return;}}
+    alert('Pertanyaan berhasil dikirim! Kami akan membalas via WhatsApp atau Email.');
+  }
+}
+</script>
+</body>
+</html>
